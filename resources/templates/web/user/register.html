@@ -1,0 +1,50 @@
+{% extends "web/index.html" %}
+{% block title %}Wishmakers · Registro{% endblock %}
+{% block content %}
+<div class="card w-50 m-auto text-black">
+    <div class="card-body">
+        <h4>Registrarse</h4>
+        <form action="/v1/user/register" method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Nombre</label>
+                <input id="name" type="text" class="form-control" placeholder="Nombre" required>
+            </div>
+            <div class="mb-3">
+                <label for="surname" class="form-label">Apellido</label>
+                <input id="surname" type="text" class="form-control" placeholder="Apellido" required>
+            </div>
+            <div class="mb-3">
+                <label for="gender" class="form-label">Genero</label>
+                <select id="gender" class="form-select">
+                    <option selected disabled>Genero</option>
+                    {% for gender in genders %}
+                        <option value="{{ gender.code }}">{{ gender.description }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" type="email" class="form-control" placeholder="Email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input id="password" type="password" class="form-control"  placeholder="Contraseña" required>
+            </div>
+            <div class="mb-3">
+                <label for="password2" class="form-label">Repita la contraseña</label>
+                <input id="password2" type="password" class="form-control"  placeholder="Contraseña" required>
+            </div>
+            <div class="mb-3">
+                <label for="birthdate" class="form-label">Fecha de nacimiento</label>
+                <input id="birthdate" type="date" class="form-control" required>
+            </div>
+            <div class="mb-3 text-center">
+                <button type="submit" class="btn btn-primary">Registrarse</button>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer text-center">
+        <img src="static/images/logo2.png" style="width: 120px">
+    </div>
+</div>
+{% endblock %}

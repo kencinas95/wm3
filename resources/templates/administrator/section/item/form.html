@@ -1,0 +1,42 @@
+<input id="pk" name="pk" type="hidden">
+<div class="mb-3">
+    <label for="name" class="form-label fw-bolder">Nombre</label>
+    <input id="name" name="name" class="form-control" type="text" placeholder="Nombre del producto" required>
+</div>
+<div class="mb-3">
+    <label for="price" class="form-label fw-bolder">Precio ($)</label>
+    <input id="price" name="price" class="form-control" type="number" placeholder="$0" step="0.1" min="0.0" required>
+</div>
+<div class="mb-3">
+    <label for="category" class="form-label fw-bolder">Categoría</label>
+    <select id="category" name="category" class="form-select" required>
+        <option value="" selected disabled>Seleccionar categoría...</option>
+        {% for category in categories %}
+            <option value="{{ category.code }}">{{ category.description }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="mb-3">
+    <label for="origin" class="form-label fw-bolder">Origen</label>
+    <select id="origin" name="origin" class="form-select" required>
+        <option value="" selected disabled>Seleccionar origen...</option>
+        {% for origin in origins %}
+            <option value="{{ origin.id }}">{{ origin.name }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="mb-3">
+    <label for="description" class="form-label fw-bolder">Descripción</label>
+    <textarea id="description" name="description" class="form-control" rows="5" style="resize: none;" required></textarea>
+</div>
+<script>
+    function loadInstance(dataId) {
+        let item = JSON.parse($("#" + dataId).text());
+        $("input[name=pk]").val(item.pk);
+        $("input[name=name]").val(item.fields.name);
+        $("input[name=price]").val(item.fields.price);
+        $("select[name=category]").val(item.fields.category);
+        $("select[name=origin]").val(item.fields.origin);
+        $("select[name=description]").val(item.fields.description);
+    }
+</script>

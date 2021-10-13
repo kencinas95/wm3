@@ -1,0 +1,62 @@
+{% extends "administrator/home.html" %}
+{% load administratortags %}
+{% block frame %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Tipo</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for origin in pagination %}
+            <tr>
+                <td>{{ origin.pk }}</td>
+                <td>{{ origin.category.description }}</td>
+                <td>{{ origin.name }}</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        {% with origin.pk|force_escape|add:"_origin" as json_id  %}
+                            {{ origin|jsonify|json_script:json_id }}
+                            <button type="button" class="btn btn-outline-primary" data-bs-target="#frame-modal" data-bs-toggle="modal"
+                                    onclick="openFrame({action: 'update', data_tag: '{{ json_id }}'})">
+                                <span class="oi oi-pencil" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></span>
+                            </button>
+                            <button type="button" class="btn btn-outline-primary" data-bs-target="#delete-frame-modal" data-bs-toggle="modal"
+                                onclick="openFrame({action: 'delete', data_tag: '{{ json_id }}'})">
+                                <span class="oi oi-delete" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"></span>
+                            </button>
+                        {% endwith %}
+                    </div>
+                </td>
+            </tr>
+        {% empty %}
+            <tr class="text-center">
+                <td colspan="4">NO ROWS FETCHED</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">
+                    {% include "administrator/common/pagination.html" %}
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#frame-modal"
+                        onclick="openFrame({action: 'create'})"><span class="oi oi-plus me-2"></span>Nuevo Origen</button>
+    {% with form_id="origin-form" form_title="Origen" action="backoffice/v1/origin" form_template="administrator/section/origin/form.html" %}
+        {% include "administrator/common/manage-frame.html" %}
+    {% endwith %}
+    <script>
+        $(() => {
+            let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map((tooltipTriggerEl) => {
+              return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+        });
+    </script>
+{% endblock %}

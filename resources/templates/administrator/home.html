@@ -1,0 +1,51 @@
+{% extends "administrator/index.html" %}
+{% block title %}
+    {% if request.session.sid %}
+    Wishmakers · Consola
+    {% else %}
+    Wishmakers · Login
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if request.session.sid %}
+        <div class="container-fluid bg-light">
+            <div class="row">
+                <div class="col-3">
+                    <div class="card m-3">
+                        <div class="card-header">
+                            <h6>Acciones</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item list-group-item-action disabled bg-primary text-white fs-6 fw-bolder">Sección: Productos</a>
+                                <a href="backoffice/origins" class="list-group-item list-group-item-action">Origenes</a>
+                                <a href="backoffice/categories" class="list-group-item list-group-item-action">Categorías</a>
+                                <a href="backoffice/inventory" class="list-group-item list-group-item-action">Inventario</a>
+                                <a href="#" class="list-group-item list-group-item-action disabled bg-primary text-white fs-6 fw-bolder">Sección: Clientes</a>
+                                <a href="#" class="list-group-item list-group-item-action">Buscar Cliente</a>
+                                <a href="#" class="list-group-item list-group-item-action">Ofertas</a>
+                                <a href="#" class="list-group-item list-group-item-action">Tiers</a>
+                                <a href="#" class="list-group-item list-group-item-action disabled bg-primary text-white fs-6 fw-bolder">Sección: Ventas</a>
+                                <a href="#" class="list-group-item list-group-item-action">Mis ventas</a>
+                                <a href="#" class="list-group-item list-group-item-action">Pedidos pendientes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-9">
+                    <div class="card m-3">
+                        <div class="card-body">
+                            {% if request.path == '/backoffice' %}
+                                Bienvenido {{ request.session.user.name }} a la Consola de Adminisración de Wishmakers.
+                            {% else %}
+                                {% block frame %}{% endblock %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        {% include "administrator/login.html" %}
+    {% endif %}
+{% endblock %}

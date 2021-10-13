@@ -1,0 +1,30 @@
+{% extends "administrator/home.html" %}
+{% block frame %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in pagination %}
+                <tr>
+                    <td>{{ category.code }}</td>
+                    <td>{{ category.description }}</td>
+                </tr>
+            {% empty %}
+                <tr class="text-center">
+                    <td colspan="2">NO ROWS FETCHED</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                    {% include "administrator/common/pagination.html" %}
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}

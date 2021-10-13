@@ -1,0 +1,25 @@
+<ul class="pagination justify-content-center">
+    <li class="page-item">
+        <a class="page-link" href="{{ request.path }}?page=1">
+            <span class="oi oi-media-step-backward"></span>
+        </a>
+    </li>
+    <li class="page-item {% if not pagination.has_previous %} disabled {% endif %}">
+        <a class="page-link" href="{{ request.path }}?page={% if pagination.has_previous %}{{ pagination.previous_page_number }}{% endif %}">
+            <span class="oi oi-caret-left"></span>
+        </a>
+    </li>
+    <li class="page-item mx-2">
+        <h6 class="mt-1">Page: {{ pagination.number }} of {{ pagination.paginator.num_pages }}</h6>
+    </li>
+    <li class="page-item {% if not pagination.has_next %} disabled {% endif %}">
+        <a class="page-link" href="{{ request.path }}?page={% if pagination.has_next %}{{ pagination.next_page_number }}{% endif %}">
+            <span class="oi oi-caret-right"></span>
+        </a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" href="{{ request.path }}?page={{ pagination.paginator.num_pages }}">
+            <span class="oi oi-media-step-forward"></span>
+        </a>
+    </li>
+</ul>

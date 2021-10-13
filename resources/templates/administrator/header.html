@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top wm-admin-header">
+    <a class="navbar-brand ms-3" href="#">
+        <img src="static/images/logo.png" class="d-inline-block align-top" alt="Wishmakers · Logo">
+    </a>
+    <h5>Consola de Administración</h5>
+    <div class="collapse navbar-collapse ms-3">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link wm-admin-user" href="#"
+                   role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ request.session.user.name }} {{ request.session.user.surname }}<span class="oi oi-person mx-2"></span>
+                </a>
+                <ul class="dropdown-menu w-100" style="margin-top: 0.8rem;">
+                    <li><a class="dropdown-item disabled" href="#">Versión de Consola: 1.0.4</a></li>
+                    {% if request.session.user.profile.is_superuser %}
+                        <li class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Agregar perfiles</a></li>
+                        <li><a class="dropdown-item" href="#">Modificar perfiles</a></li>
+                        <li><a class="dropdown-item" href="#">Eliminar perfiles</a></li>
+                        <li class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Agregar administrador</a></li>
+                        <li><a class="dropdown-item" href="#">Modificar administrador</a></li>
+                        <li><a class="dropdown-item" href="#">Eliminar administrador</a></li>
+                    {% endif %}
+                    <li class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Cambiar contraseña</a></li>
+                    <li><a class="dropdown-item" href="#">Mis Datos</a></li>
+                    {% if not request.session.user.profile.is_superuser %}
+                        <li><a class="dropdown-item" href="#">Mis Ventas</a></li>
+                    {% endif %}
+                    <li><a class="dropdown-item" href="#">Administradores</a></li>
+                    <li class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,68 @@
+{% extends "administrator/home.html" %}
+{% load administratortags %}
+{% block frame %}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Categoría</th>
+                <th>Origen</th>
+                <th>Destacado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in pagination %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>$ {{ item.price }}</td>
+                <td>{{ item.category.description }}</td>
+                <td>{{ item.origin.name }}</td>
+                <td>{{ item.highlighted }}</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        {% with item.pk|force_escape|add:"_item" as json_id  %}
+                            {{ item|jsonify|json_script:json_id }}
+                            <button type="button" class="btn btn-outline-primary" data-bs-target="#frame-modal" data-bs-toggle="modal"
+                                    onclick="openFrame({action: 'update', data_tag: '{{ json_id }}'})">
+                                <span class="oi oi-pencil" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar"></span>
+                            </button>
+                            <button type="button" class="btn btn-outline-primary" data-bs-target="#delete-frame-modal" data-bs-toggle="modal"
+                                onclick="openFrame({action: 'delete', data_tag: '{{ json_id }}'})">
+                                <span class="oi oi-delete" data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"></span>
+                            </button>
+                        {% endwith %}
+                    </div>
+                </td>
+            </tr>
+        {% empty %}
+            <tr class="text-center">
+                <td colspan="7">NO ROWS FETCHED</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7">
+                    {% include "administrator/common/pagination.html" %}
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <button class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#frame-modal"
+        onclick="openFrame({action: 'create'})"><span class="oi oi-plus me-2"></span>Nuevo Producto</button>
+    {% with form_id="item-form" form_title="Producto" action="backoffice/v1/item" form_template="administrator/section/item/form.html" %}
+        {% include "administrator/common/manage-frame.html" %}
+    {% endwith %}
+    <script>
+        $(() => {
+            let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map((tooltipTriggerEl) => {
+              return new bootstrap.Tooltip(tooltipTriggerEl)
+            });
+        });
+    </script>
+{% endblock %}

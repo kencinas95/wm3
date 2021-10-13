@@ -1,0 +1,47 @@
+{% extends "web/index.html" %}
+{% block title %}Wishmakers{% endblock %}
+{% block content %}
+    <div class="wm-banner-container w-100">
+        <img class="img-fluid w-100" src="static/images/banner.png">
+    </div>
+    {% if request.session.alive %}
+        <div class="wm-section w-100">
+            <div class="wm-section-title">
+                <span>Para tí</span>
+            </div>
+            <div class="wm-section-body">
+                {% with items=user_offers identifier='useroffers' %}
+                    {% include "web/item/slider-item.html" %}
+                {% endwith %}
+            </div>
+        </div>
+    {% endif %}
+    <div class="wm-section w-100">
+        <div class="wm-section-title">
+            <span>Destacados</span>
+        </div>
+        <div class="wm-section-body">
+            {% with items=highlighted identifier='highlighted' %}
+                {% include "web/item/slider-item.html" %}
+            {% endwith %}
+        </div>
+    </div>
+    <div class="wm-section w-100">
+        <div class="wm-section-title">
+            <span>Populares</span>
+        </div>
+        <div class="wm-section-body">
+            {% with items=popular identifier="popular" %}
+                {% include "web/item/slider-item.html" %}
+            {% endwith %}
+        </div>
+    </div>
+    <div class="wm-section w-100">
+        <div class="wm-section-title">
+            <span>Beneficios para miembros</span>
+        </div>
+        <div class="wm-section-body">
+
+        </div>
+    </div>
+{% endblock %}

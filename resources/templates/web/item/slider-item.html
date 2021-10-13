@@ -1,0 +1,37 @@
+{% load itemtags %}
+{% if not items %}
+    <div class="text-center">
+        <h1>NO ITEMS</h1>
+    </div>
+{% else %}
+    <div id="{{ identifier }}" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            {% for item in items %}
+                <button type="button" data-bs-target="#{{ identifier }}"
+                        {% if forloop.counter0 == 0 %} class="active" {% endif %}
+                        data-bs-slide-to="{{ forloop.counter0 }}" aria-current="true"
+                        aria-label="Item {{ forloop.counter }}"></button>
+            {% endfor %}
+        </div>
+        <div class="carousel-inner" role="listbox">
+            {% for item in items %}
+                <div class="carousel-item wm-slider-item {% if forloop.counter0 == 0 %} active {% endif %}">
+                    <a href="item/{{ item.id }}">
+                        <img src="{% item_image_path item %}" class="img-thumbnail w-50 d-block  m-auto">
+                    </a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h3>{{ item.name }}</h3>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#{{ identifier }}" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#{{ identifier }}" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+{% endif %}

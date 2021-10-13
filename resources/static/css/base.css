@@ -1,0 +1,92 @@
+@font-face {
+	font-family: 'Baloo';
+	src: url(/static/css/font/baloo.ttf);
+}
+
+@font-face {
+	font-family: 'Bowly';
+	src: url(/static/css/font/bowly.ttf);
+}
+
+body {
+	min-height: 100vh;
+	height: 100%;
+	width: 100%;
+    color: #d6d8db;
+    font-size: 20px;
+    font-family: 'Baloo', sans-serif;
+    background: url(/static/images/background.jpg) no-repeat center center fixed;
+}
+
+.wm-header {
+    background: rgb(0, 0, 0);
+}
+
+.wm-header .navbar-brand {
+    font-family: 'Baloo', sans-serif;
+    font-size: 25px;
+}
+
+.wm-page {
+    margin-top: 2em;
+    width: 95%;
+}
+
+.wm-banner-container {
+    margin-top: -1.5em;
+    position: relative;
+    text-align: center;
+    color: white;
+    margin-bottom: 0.5em;
+}
+
+.wm-banner-container > img {
+    border-radius: 10px;
+}
+
+.wm-banner-container > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    font-family: 'Baloo', sans-serif !important;
+    font-size: 2em;
+    border-radius: 0.5em;
+}
+
+.wm-section {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border-radius: 0.5em;
+}
+
+.wm-section-title {
+    padding: 15px;
+    font-family: 'Bowly', sans-serif;
+    text-shadow: 1px 5px 30px black;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.wm-section-body {
+    padding: 1em;
+}
+
+
+.wm-slider-item .btn {
+    font-size: 1.5em !important;
+}
+
+.wm-thumbnail {
+    width: 35%;
+    height: auto;
+}
+
+.carousel-item {
+    background: rgba(0,0,0, 0.4);
+}
+

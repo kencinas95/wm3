@@ -1,0 +1,37 @@
+<div id="login-modal" class="modal fade m-auto" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header d-flex flex-column align-content-start">
+                <span class="modal-title me-auto mb-1 fs-5">Consola de Administración</span>
+                <span class="me-auto">Login</span>
+            </div>
+            <div class="modal-body">
+                {% if error_msg %}
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                        <span class="oi oi-warning"></span>
+                        <div>
+                            {{ error_msg }}
+                        </div>
+                    </div>
+                {% endif %}
+                <form id="login-form" class="me-auto" action="/backoffice/v1/admin/login" method="POST">
+                    <div class="mb-2">
+                        <label for="username" class="form-label fw-bolder">Username</label>
+                        <input id="username" name="username" type="text" class="form-control" placeholder="Nombre de Usuario" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="password" class="form-label fw-bolder">Password</label>
+                        <input id="password" name="password" type="password" class="form-control" placeholder="Contraseña" required>
+                    </div>
+                    <input type="submit" class="btn btn-primary mt-1" value="Ingresar">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    (() => {
+        let modal = new bootstrap.Modal(document.getElementById('login-modal'));
+        modal.show();
+    })();
+</script>

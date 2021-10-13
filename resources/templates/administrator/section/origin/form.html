@@ -1,0 +1,22 @@
+<input name="pk" type="hidden">
+<div class="mb-3">
+    <label for="name" class="form-label fw-bolder">Nombre</label>
+    <input id="name" name="name" class="form-control" type="text" placeholder="Nombre de origen" required>
+</div>
+<div class="mb-3">
+    <label for="origin_category" class="form-label fw-bolder">Categoría de Origen</label>
+    <select id="origin_category" name="origin_category" class="form-select" required>
+        <option value="" selected disabled>Seleccionar categoría de origen...</option>
+        {% for t in types %}
+            <option value="{{ t.code }}">{{ t.description }}</option>
+        {% endfor %}
+    </select>
+</div>
+<script>
+    function loadInstance(dataId) {
+        let origin = JSON.parse($("#" + dataId).text());
+        $("input[name=pk]").val(origin.pk);
+        $("input[name=name]").val(origin.fields.name);
+        $("select[name=origin_category]").val(origin.fields.category);
+    }
+</script>

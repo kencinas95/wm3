@@ -1,0 +1,92 @@
+<div id="frame-modal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">{{ form_title }}</h6>
+            </div>
+            <div class="modal-body">
+                <form id="{{ form_id }}" action="{{ action }}">
+                    {% include form_template %}
+                    <hr>
+                    <div class="mb-3 float-end">
+                        <input type="submit" class="btn btn-primary" value="Guardar">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal"
+                            onclick="clean()">Cerrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="delete-frame-modal" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">¿Eliminar entrada?</h6>
+            </div>
+            <div class="modal-body">
+                <form id="delete-{{ form_id }}" action="{{ action }}">
+                    <input name="pk" type="hidden">
+                    <h6 class="form-label">¿Desea eliminar la entrada seleccionada?</h6>
+                    <hr>
+                    <div class="mb-3 float-end">
+                        <input type="submit" class="btn btn-primary" value="Si">
+                        <button type="button" class="btn btn-outline-secondary"
+                            data-bs-dismiss="modal">No</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function clean() {
+        $("#{{ form_id }}").trigger('reset');
+    }
+    function openFrame(parameters) {
+        let form = $("#{{ form_id }}");
+
+        switch (parameters.action.toLowerCase()) {
+            case "create":
+                $(form).attr('method', 'POST');
+                break;
+            case "update":
+                $(form).attr('method', 'PUT');
+                loadInstance(parameters.data_tag);
+                break;
+            case "delete":
+                let hiddenPk = $("#delete-{{ form_id }} input[name=pk]");
+                let object = JSON.parse($("#" + parameters.data_tag).text());
+                $(hiddenPk).val(object['pk']);
+                $("#delete-{{ form_id }}").attr('method', 'DELETE');
+                break;
+            default:
+                break;
+        }
+    }
+    function handleSubmit(formId) {
+        $("#" + formId).on('submit', (e) => {
+           e.preventDefault();
+
+           let form = $("#" + formId);
+           let url = $(form).attr('action');
+           let method = $(form).attr('method');
+           let data = $(form).serialize();
+
+           $.ajax(url, {
+               method: method,
+               data: data,
+               success: (response) => {
+                   location.reload();
+               },
+               error: (response) => {
+                   alert(response.statusText);
+               }
+           });
+        });
+    }
+    (() => {
+        handleSubmit("{{ form_id }}");
+        handleSubmit("delete-{{ form_id }}");
+    })();
+</script>

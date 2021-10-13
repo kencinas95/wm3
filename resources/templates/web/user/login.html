@@ -1,0 +1,30 @@
+{% extends "web/index.html" %}
+{% block title %}Wishmakers · Ingreso{% endblock %}
+{% block content %}
+<div class="card w-25 m-auto text-black">
+    <div class="card-body">
+        <h4>Ingresar</h4>
+        <form action="/v1/user/login" method="POST" class="text-center">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Dirección de email">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" placeholder="Contraseña" aria-describedby="password-help">
+                <div id="password-help" class="form-text" style="font-size: 12px;">
+                    <a class="link-primary" href="/password-forgot">Olvidé mi contraseña</a>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+            <div class="form-text mt-5">
+                <a class="btn btn-outline-primary" style="text-decoration: none;" href="/register">No tengo cuenta</a>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer text-center">
+        <img src="static/images/logo2.png" style="width: 120px">
+    </div>
+
+</div>
+{% endblock %}
