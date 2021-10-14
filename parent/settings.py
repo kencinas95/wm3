@@ -101,7 +101,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'resources/media')
 
 STATICFILES_DIR = (
     ('/static', os.path.join(BASE_DIR, 'resources/static')),
-    ('/media', os.path.join(BASE_DIR, 'resources/media'))
+    ('/media', os.path.join(BASE_DIR, 'resources/media')),
+    ('favicon.ico', os.path.join(BASE_DIR, 'resources/static/images/favicon.ico'))
 )
 
 CACHES = {
