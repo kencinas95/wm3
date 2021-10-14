@@ -4,6 +4,7 @@ script_version=1.0.0
 
 PROFILE="${PROFILE:=dev}"
 
+PY=$(which python3)
 DJANGO_ADMIN="../../manage.py"
 DJANGO_ADMIN=$(cd "$(dirname "$DJANGO_ADMIN")"; pwd -P)/$(basename "$DJANGO_ADMIN")
 
@@ -33,7 +34,7 @@ make_migrations()
 {
 
   log "Running django to create the migrations:"
-  python "$DJANGO_ADMIN" makemigrations || {
+  $PY "$DJANGO_ADMIN" makemigrations || {
     log "Creation of migrations has failed.!"
     log "Django is unable to create migrations."
     exit 1
@@ -59,21 +60,21 @@ migrate()
 
   if [ "$target_version" = "latest" ]; then
     log "Executing migration to latest version"
-    python "$DJANGO_ADMIN" migrate || {
+    $PY "$DJANGO_ADMIN" migrate || {
       log "Migration has failed for latest version"
       log "Unable to migrate!"
       exit 1
     }
   else
     log "Executing migration to version $target_version"
-    python "$DJANGO_ADMIN" migrate "$target_version" || {
+    $PY "$DJANGO_ADMIN" migrate "$target_version" || {
       log "Migration has failed for version $target_version"
       log "Unable to migrate!"
       exit 1
     }
   fi
 
-  python "$DJANGO_ADMIN" makemigrations
+  $PY "$DJANGO_ADMIN" makemigrations
 
   log "Migration finished!"
 }
@@ -154,7 +155,7 @@ release()
   make_migrations
   migrate "latest"
 
-  latest_version=$(find "$DATABASE_DIR" -d 1 -type d | xargs -I{} basename {} | sort -V | tail -n 1)
+  latest_version=$(find "$DATABASE_DIR" -depth -type d | xargs -I{} basename {} | sort -V | tail -n 1)
   log "Running versions and populating database up to version: $latest_version"
 
   apply_patch "$latest_version"

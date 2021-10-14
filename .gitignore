@@ -128,7 +128,7 @@ dmypy.json
 
 # IDEA & MacOS
 .idea/
-.DS_Store/
+.DS_Store
 
 # Project
 resources/media/
