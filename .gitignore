@@ -133,3 +133,5 @@ dmypy.json
 # Project
 resources/media/
 resources/utils/
+node_modules
+yarn.lock
