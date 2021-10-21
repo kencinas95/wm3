@@ -22,9 +22,12 @@ project:
         build:
           run:
             - execute::py os.chdir("${{ web.base-path }}")
-            - execute::sh rm -rd "${{ web.base-path }}/lib" 2> /dev/null
-            - execute::sh rm -rd "${{ web.base-path }}/node_modules" 2> /dev/null
-            - execute::sh rm -f "${{ web.base-path }}/yarn.lock" 2> /dev/null
+            - execute::sh if [[ -d "${{ web.base-path }}/lib" ]]; then rm -rd "${{ web.base-path }}/lib"; fi
+            - execute::sh if [[ -d "${{ web.base-path }}/node_modules" ]]; then rm -rd "${{ web.base-path }}/node_modules"; fi
+            - execute::sh if [[ -f "${{ web.base-path }}/yarn.lock" ]]; then rm -f "${{ web.base-path }}/yarn.lock"; fi
+            # - execute::sh rm -frd "${{ web.base-path }}/lib" 2> /dev/null
+            # - execute::sh rm -frd "${{ web.base-path }}/node_modules" 2> /dev/null
+            # - execute::sh rm -f "${{ web.base-path }}/yarn.lock" 2> /dev/null
             - execute::sh ${{ YARN }} install
             - execute::sh ${{ YARN }} run build
             - execute::py os.chdir("${{ project.home }}")
