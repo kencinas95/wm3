@@ -1,6 +1,6 @@
--- Log actions
-SET GLOBAL log_output = 'TABLE';
-SET GLOBAL general_log = 'ON';
+-- Log actions (For DEV profile)
+-- SET GLOBAL log_output = 'TABLE';
+-- SET GLOBAL general_log = 'ON';
 
 -- Drop procedures
 drop procedure if exists sp_upgrade_version;

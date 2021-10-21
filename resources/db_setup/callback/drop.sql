@@ -52,11 +52,11 @@ drop procedure if exists sp_upgrade_version;
 drop procedure if exists sp_register_procedure;
 drop procedure if exists sp_register_completed_migration;
 
--- Delete all logs
-SET GLOBAL general_log = 'OFF';
-RENAME TABLE mysql.general_log TO mysql.general_log_temp;
-DELETE FROM mysql.`general_log_temp`;
-RENAME TABLE mysql.general_log_temp TO mysql.general_log;
-SET GLOBAL general_log = 'ON';
+-- Delete all logs (For DEV profile)
+-- SET GLOBAL general_log = 'OFF';
+-- RENAME TABLE mysql.general_log TO mysql.general_log_temp;
+-- DELETE FROM mysql.`general_log_temp`;
+-- RENAME TABLE mysql.general_log_temp TO mysql.general_log;
+-- SET GLOBAL general_log = 'ON';
 
 commit;
