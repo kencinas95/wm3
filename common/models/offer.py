@@ -21,6 +21,7 @@ class OfferStatus(models.Model):
 
     class Meta:
         db_table = 'wm_offer_status'
+        managed = False
 
 
 class OfferType(models.Model):
@@ -37,6 +38,7 @@ class OfferType(models.Model):
         This table is not managed by the app.
         """
         db_table = 'wm_offer_type'
+        managed = False
 
 
 class Offer(models.Model):
@@ -55,4 +57,5 @@ class Offer(models.Model):
 
     class Meta:
         db_table = 'wm_offer'
+        managed = False
 

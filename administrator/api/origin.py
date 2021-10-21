@@ -1,6 +1,5 @@
 import typing
 import logging
-from urllib import parse
 
 from django.http import QueryDict
 from django.http import HttpRequest

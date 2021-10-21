@@ -24,6 +24,7 @@ class BundleGroup(models.Model):
 
     class Meta:
         db_table = 'wm_bundle_group'
+        managed = False
 
 
 class Bundle(models.Model):
@@ -39,3 +40,4 @@ class Bundle(models.Model):
 
     class Meta:
         db_table = 'wm_bundle'
+        managed = False

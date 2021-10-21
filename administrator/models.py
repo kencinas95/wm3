@@ -13,6 +13,7 @@ class AdminProfile(models.Model):
 
     class Meta:
         db_table = 'wm_admin_profile'
+        managed = False
 
 
 class AdminPermission(models.Model):
@@ -29,6 +30,7 @@ class AdminPermission(models.Model):
 
     class Meta:
         db_table = 'wm_admin_permission'
+        managed = False
 
 
 class AdminUser(models.Model):
@@ -43,9 +45,11 @@ class AdminUser(models.Model):
     surname: str = models.CharField(max_length=128, blank=False, null=False)
     email: str = models.EmailField()
     phone: int = models.PositiveBigIntegerField()
+    env: str = models.CharField(max_length=10, null=False, blank=False)
 
     class Meta:
         db_table = 'wm_admin_user'
+        managed = False
 
 
 class AdminSession(models.Model):
@@ -58,4 +62,5 @@ class AdminSession(models.Model):
 
     class Meta:
         db_table = 'wm_admin_session'
+        managed = False
 

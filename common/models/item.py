@@ -23,6 +23,7 @@ class OriginCategory(models.Model):
 
     class Meta:
         db_table = "wm_item_origin_category"
+        managed = False
 
 
 class Origin(models.Model):
@@ -37,6 +38,7 @@ class Origin(models.Model):
 
     class Meta:
         db_table = "wm_item_origin"
+        managed = False
 
 
 class ItemCategory(models.Model):
@@ -50,6 +52,7 @@ class ItemCategory(models.Model):
 
     class Meta:
         db_table = 'wm_item_category'
+        managed = False
         ordering = ['-code']
 
 
@@ -70,6 +73,7 @@ class Item(models.Model):
 
     class Meta:
         db_table = 'wm_item'
+        managed = False
         ordering = ['-id']
 
     @staticmethod
@@ -97,6 +101,7 @@ class ItemImage(models.Model):
 
     class Meta:
         db_table = 'wm_item_image'
+        managed = False
 
 
 class Stock(models.Model):
@@ -112,4 +117,5 @@ class Stock(models.Model):
 
     class Meta:
         db_table = 'wm_item_stock'
+        managed = False
 

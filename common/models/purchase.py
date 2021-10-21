@@ -27,6 +27,7 @@ class PurchaseStatus(models.Model):
         This table is not managed by the app.
         """
         db_table = 'wm_purchase_status'
+        managed = False
 
 
 class Purchase(models.Model):
@@ -43,4 +44,5 @@ class Purchase(models.Model):
 
     class Meta:
         db_table = 'wm_purchase'
+        managed = False
 

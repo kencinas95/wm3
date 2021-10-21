@@ -33,6 +33,7 @@ class ContactStatus(models.Model):
         This table is not managed by the app.
         """
         db_table = 'wm_user_contact_status'
+        managed = False
 
 
 class ContactType(models.Model):
@@ -49,6 +50,7 @@ class ContactType(models.Model):
         This table is not managed by the app.
         """
         db_table = 'wm_user_contact_type'
+        managed = False
 
 
 class Gender(models.Model):
@@ -62,6 +64,7 @@ class Gender(models.Model):
 
     class Meta:
         db_table = 'wm_user_gender'
+        managed = False
 
 
 class UserStatus(models.Model):
@@ -78,6 +81,7 @@ class UserStatus(models.Model):
         This table is not managed by the app.
         """
         db_table = 'wm_user_status'
+        managed = False
 
 
 class UserTier(models.Model):
@@ -95,6 +99,7 @@ class UserTier(models.Model):
         This table is not managed by the app.
         """
         db_table = 'wm_user_tier'
+        managed = False
 
 
 class User(models.Model):
@@ -119,6 +124,7 @@ class User(models.Model):
 
     class Meta:
         db_table = 'wm_user'
+        managed = False
 
 
 class UserActivation(models.Model):
@@ -134,6 +140,7 @@ class UserActivation(models.Model):
 
     class Meta:
         db_table = 'wm_user_activation'
+        managed = False
 
 
 class Session(models.Model):
@@ -146,6 +153,7 @@ class Session(models.Model):
 
     class Meta:
         db_table = 'wm_user_session'
+        managed = False
 
 
 class Contact(models.Model):
@@ -163,5 +171,6 @@ class Contact(models.Model):
 
     class Meta:
         db_table = 'wm_user_contact'
+        managed = False
 
 

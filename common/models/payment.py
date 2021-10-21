@@ -18,4 +18,5 @@ class PaymentType(models.Model):
 
     class Meta:
         db_table = 'wm_payment_type'
+        managed = False
 

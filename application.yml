@@ -1,0 +1,69 @@
+project:
+  profile: dev
+  version: 0.0.1-SNAPSHOT
+  vars:
+    PYTHON: evaluate::sh which python3
+    YARN: evaluate::sh which yarn
+    MYSQL: evaluate::sh which mysql
+  modules:
+    app:
+      version: ${{ project.version }}
+      base-path: ${{ project.home }}
+      jobs:
+        build:
+          run:
+            - execute::sh ${{ PYTHON }} -m pip install --upgrade pip
+            - execute::sh ${{ PYTHON }} -m pip install -r requirements.txt
+    web:
+      version: ${{ project.version }}
+      base-path: ${{ project.home }}/resources/static
+      jobs:
+        build:
+          run:
+            - execute::py os.chdir("${{ web.base-path }}")
+            - execute::sh rm -rd lib
+            - execute::sh rm -rd node_modules
+            - execute::sh rm -f  yarn.locl
+            - execute::sh ${{ YARN }} install
+            - execute::sh ${{ YARN }} run build
+            - execute::py os.chdir("${{ project.home }}")
+    db:
+      version: v0001
+      base-path: ${{ project.home }}/resources/db_setup
+      vars:
+        my_cnf: ${{ project.home }}/resources/env/${{ project.profile }}/.my.cnf
+      jobs:
+        baseline:
+          run:
+            # - execute::sh ${{ PYTHON }} manage.py makemigrations
+            # - execute::sh ${{ PYTHON }} manage.py migrate
+            - execute::sh cp ${{ db.my_cnf }} ~
+            - execute::py os.chdir("${{ db.base-path }}")
+            - execute::sh ${{ MYSQL }} < callback/pre_build.sql
+            - execute::sh for sql_file in baseline/*.sql; do echo "\tExecuting sql script $sql_file"; ${{ MYSQL }} < "$sql_file"; done
+            - execute::sh rm -f ~/.my.cnf
+            - execute::py os.chdir("${{ project.home }}")
+        migrate:
+          run:
+            - execute::sh cp ${{ db.my_cnf }} ~
+            - execute::py os.chdir("${{ db.base-path }}")
+            - execute::sh for sql_file in ${{ db.version }}/*.sql; do echo "\tExecuting sql script $sql_file"; ${{ MYSQL }} < "$sql_file"; done
+            - execute::sh for sql_file in ${{ db.version }}/${{ project.profile }}/*.sql; do echo "\tExecuting sql script $sql_file"; ${{ MYSQL }} < "$sql_file"; done
+            - execute::sh rm -f ~/.my.cnf
+            - execute::py os.chdir("${{ project.home }}")
+        drop:
+          run:
+            - execute::sh cp ${{ db.my_cnf }} ~
+            - execute::py os.chdir("${{ db.base-path }}")
+            - execute::sh ${{ MYSQL }} < callback/drop.sql
+            - execute::sh ${{ MYSQL }} < callback/post_drop.sql
+            - execute::sh rm -f ~/.my.cnf
+            - execute::py os.chdir("${{ project.home }}")
+        rollback:
+          run:
+            - execute::sh cp ${{ db.my_cnf }} ~
+            - execute::py os.chdir("${{ db.base-path }}")
+            - execute::sh ${{ MYSQL }} < ${{ db.version }}/*.sql
+            - execute::sh ${{ MYSQL }} < ${{ db.version }}/${{ project.profile }}/*.sql
+            - execute::sh rm -f ~/.my.cnf
+            - execute::py os.chdir("${{ project.home }}")

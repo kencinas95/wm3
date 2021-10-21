@@ -26,6 +26,7 @@ class Comment(models.Model):
 
     class Meta:
         db_table = 'wm_comment'
+        managed = False
 
 
 class ComplainStatus(models.Model):
@@ -42,6 +43,7 @@ class ComplainStatus(models.Model):
         This table is not managed by the app.
         """
         db_table = 'wm_comment_complain_status'
+        managed = False
 
 
 class Complain(models.Model):
@@ -58,4 +60,5 @@ class Complain(models.Model):
 
     class Meta:
         db_table = 'wm_comment_complain'
+        managed = False
 

@@ -70,7 +70,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
-            'read_default_file': os.path.join(BASE_DIR, 'parent', 'env', f'{env.PROFILE}', '.my.cnf')
+            'read_default_file': os.path.join(BASE_DIR, 'parent', '../resources/env', f'{env.PROFILE}', '.my.cnf')
         }
     }
 }
