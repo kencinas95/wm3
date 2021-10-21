@@ -21,9 +21,9 @@ project:
         build:
           run:
             - execute::py os.chdir("${{ web.base-path }}")
-            - execute::sh rm -rd lib
-            - execute::sh rm -rd node_modules
-            - execute::sh rm -f  yarn.locl
+            - execute::sh if [[ -d lib ]]; then rm -rd lib; fi
+            - execute::sh if [[ -d node_modules ]]; then rm -rd node_modules; fi
+            - execute::sh if [[ -f yarn.lock ]]; then rm -f yarn.lock; fi
             - execute::sh ${{ YARN }} install
             - execute::sh ${{ YARN }} run build
             - execute::py os.chdir("${{ project.home }}")
