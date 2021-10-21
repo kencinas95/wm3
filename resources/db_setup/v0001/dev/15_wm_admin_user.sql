@@ -1,15 +1,6 @@
 -- dev
--- OROFR0t4YLP0CuwaKzH2LEXCqCGeAfBf
-INSERT INTO wm_admin_user(username, password, profile_id, pepper, name, surname, email, phone, env)
-VALUES ('kevin.encinas',
-        'e004cf26ab78c8ad7007ef43d53e446cdb37a356751fbbacf12881e9279ca048c75735dc70d2829c67eb10d23a338d404218c98564ca2376b9b1e11b67ac677a',
-        'SU',
-        'b0355ecd53d3fa32f82193da9dc47bea52269fcad2373b070d0b4b7784f4d26b',
-        'Kevin Nahuel',
-        'Encinas Vargas',
-        'encinaskevin096@gmail.com',
-        1138672849,
-        'dev');
-COMMIT;
+-- n6RrVZoy65Uhz2luk7MPbIZGUzBfhEK2
+insert into wm_admin_user(username, password, profile_id, pepper, name, surname, email, phone) values ('kevin.encinas', 'aa0a6eed7d8ec8d476c4eb4290385a69a2ec33eed50464ab151025f463b87d4e56de7366c5dd48e039ca3081914133fc0f102df73de2e54fac2a80be7b9926dd', 'SU', '8b47e98c4e74b5eedbabc148435f88171be95e815b3278e088ad82dedfaabab1', 'Kevin Nahuel', 'Encinas Vargas', 'encinaskevin096@gmail.com', 1138672849);
+commit;
 
 call sp_register_completed_migration('v001', 'dev/15_wm_admin_user.sql');
