@@ -3,7 +3,7 @@ import dotenv
 
 # Load .profile env
 basedir = os.path.abspath(os.path.dirname(__file__))
-dotenv.load_dotenv(basedir, '.profile')
+dotenv.load_dotenv(os.path.join(basedir, '.profile'))
 
 # App active profile (test, qa, pre-prod, prod)
 PROFILE = os.environ['PROFILE']
